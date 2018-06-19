@@ -1,32 +1,57 @@
 import React, { Component } from 'react';
+import Filmcard from './components/filmcard';
+
+const BASE_URL = 'https://ghibliapi.herokuapp.com/films';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
-        };
-    }
-
-    componentDidMount = () => {
-        fetch('https://ghibliapi.herokuapp.com/films')
-        .then(function(response) {
-        if (response.status >= 400) {
-            throw new Error("Bad response from server");
+            id: [],
         }
-        return response.json();
-    })
-    .then(function(films) {
-        console.log(films);
-    });
+    }
+    componentDidMount = () => {
+        fetch(`${BASE_URL}`)
+            .then((results) => {
+                return results.json()
+            }).then(
+              (result) => {
+                this.setState({
+                  id: result.id
+                });
+            })
+
     }
 
     render() {
+        const { id } = this.state;
+        
         return (
-            <h1>Hello World</h1>
+  
+            <React.Fragment>
+                <Filmcard />
+            </React.Fragment>
+           
         )
     }
 }
 
+
+
+
 export default App;
+
+// let filmData = {
+//     username: document.getElementById("title").value,
+//     chirp: document.getElementById("description").value
+//   };
+
+
+// componentDidMount = () => {
+//     fetch((obj) => console.log(obj))
+// }
+
+// {title.map(title =>
+//     <div key={title.objectID}>
+//       
