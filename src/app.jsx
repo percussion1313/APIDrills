@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Filmcard from './components/filmcard';
+import Filmlist from './components/filmlist';
 
 const BASE_URL = 'https://ghibliapi.herokuapp.com/films';
 
@@ -8,31 +8,32 @@ class App extends Component {
         super(props);
 
         this.state = {
-            id: [],
+            movie: [],
         }
     }
+
     componentDidMount = () => {
         fetch(`${BASE_URL}`)
             .then((results) => {
                 return results.json()
             }).then(
-              (result) => {
-                this.setState({
-                  id: result.id
-                });
-            })
+                (result) => {
+                    this.setState({
+                        movie: result
+                    });
+                })
 
     }
 
     render() {
-        const { id } = this.state;
-        
+
         return (
-  
+
             <React.Fragment>
-                <Filmcard />
+                <h1 className="text-center">STUDIO GHIBLI FILMS</h1>
+                <Filmlist items={this.state.movie} />
             </React.Fragment>
-           
+
         )
     }
 }
@@ -41,17 +42,3 @@ class App extends Component {
 
 
 export default App;
-
-// let filmData = {
-//     username: document.getElementById("title").value,
-//     chirp: document.getElementById("description").value
-//   };
-
-
-// componentDidMount = () => {
-//     fetch((obj) => console.log(obj))
-// }
-
-// {title.map(title =>
-//     <div key={title.objectID}>
-//       
